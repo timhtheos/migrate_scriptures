@@ -1,24 +1,24 @@
-id: books
-label: Scripture books
+id: versions
+label: Scripture versions
 migration_group: default
 source:
   plugin: url
-  urls: "data/books.xml"
+  urls: "data/versions.xml"
   data_fetcher_plugin: http
   data_parser_plugin: xml
-  item_selector: /BookNames/book
+  item_selector: /VersionNames/version
   fields:
     -
       name: title
-      label: 'Book Title'
-      selector: ./@long
+      label: 'Version Title'
+      selector: ./@name
     -
       name: name
-      label: 'Book name'
+      label: 'Version name'
       selector: ./@name
     -
       name: alias
-      label: 'Book title'
+      label: 'Version alias'
       selector: ./@alias
     -
       name: id
@@ -29,14 +29,11 @@ source:
       type: string
 process:
   title: title
-  field_version:
-    plugin: default_value
-    default_value: 7
   field_name: name
   field_alias: alias
   type:
     plugin: default_value
-    default_value: book
+    default_value: version
   uid:
     plugin: default_value
     default_value: 1

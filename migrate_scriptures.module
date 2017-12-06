@@ -6,6 +6,7 @@
  * Cleans up config entities installed by this module.
  */
 function migrate_scriptures_uninstall() {
+  db_query("DELETE FROM {config} WHERE name LIKE '%migrate_plus.migration.versions%'");
   db_query("DELETE FROM {config} WHERE name LIKE '%migrate_plus.migration.books%'");
   drupal_flush_all_caches();
 }
