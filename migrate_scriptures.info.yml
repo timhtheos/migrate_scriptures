@@ -1,0 +1,7 @@
+name: Migrate Scriptures
+type: module
+core: 8.x
+description: 'Migrate all scriptures from XML.'
+dependencies:
+  - migrate_tools
+  - migrate_plus

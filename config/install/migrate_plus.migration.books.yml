@@ -1,0 +1,45 @@
+id: books
+label: Scripture books
+migration_group: default
+source:
+  plugin: url
+  urls: "data/books.xml"
+  data_fetcher_plugin: http
+  data_parser_plugin: xml
+  item_selector: /BookNames/book
+  fields:
+    -
+      name: book_title
+      label: 'Book Title'
+      selector: ./@long
+    -
+      name: book_name
+      label: 'Book name'
+      selector: ./@short
+    -
+      name: book_alias
+      label: 'Book title'
+      selector: ./@abbr
+    -
+      name: id
+      label: 'Unique Id'
+      selector: ./@code
+  ids:
+    id:
+      type: string
+process:
+  title: book_title
+  field_name: book_name
+  field_alias: book_alias
+  type:
+    plugin: default_value
+    default_value: book
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: entity:node
+migration_dependencies: {}
