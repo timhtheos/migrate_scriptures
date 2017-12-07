@@ -8,5 +8,6 @@
 function migrate_scriptures_uninstall() {
   db_query("DELETE FROM {config} WHERE name LIKE '%migrate_plus.migration.versions%'");
   db_query("DELETE FROM {config} WHERE name LIKE '%migrate_plus.migration.books%'");
+  db_query("DELETE FROM {config} WHERE name LIKE '%migrate_plus.migration.verses%'");
   drupal_flush_all_caches();
 }

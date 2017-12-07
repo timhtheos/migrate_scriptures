@@ -1,0 +1,102 @@
+id: verses
+label: Scripture verses
+migration_group: default
+source:
+  plugin: url
+  urls: "data/verses-2.xml"
+  data_fetcher_plugin: http
+  data_parser_plugin: xml
+  item_selector: /usfx/book/p/v
+  fields:
+    -
+      name: title
+      label: 'Verse Title'
+      selector: ./@bcv
+    -
+      name: version
+      label: 'Verse version'
+      selector: ./@vv
+    -
+      name: book
+      label: 'Verse book'
+      selector: ./@bcv
+    -
+      name: chapter
+      label: 'Verse chapter'
+      selector: ./@bcv
+    -
+      name: number
+      label: 'Verse number'
+      selector: ./@id
+    -
+      name: verse
+      label: 'Verse text'
+      selector: w
+    -
+      name: verse_long
+      label: 'Verse text long'
+      selector: w
+    -
+      name: id
+      label: 'Unique Id'
+      selector: ./@bcv
+  ids:
+    id:
+      type: string
+process:
+  title: title
+  field_version:
+    -
+      plugin: get
+      source: version
+    -
+      plugin: entity_lookup
+      value_key: field_alias
+      bundle_key: type
+      bundle: version
+      entity_type: node
+      ignore_case: true
+  field_book:
+    -
+      plugin: explode
+      source: chapter
+      limit: 2
+      delimiter: '.'
+    -
+      plugin: extract
+      index:
+        - 0
+    -
+      plugin: entity_lookup
+      value_key: field_alias
+      bundle_key: type
+      bundle: book
+      entity_type: node
+      ignore_case: true
+  field_chapter:
+    -
+      plugin: explode
+      source: chapter
+      limit: 2
+      delimiter: '.'
+    -
+      plugin: extract
+      index:
+        - 1
+  field_verse: number
+  field_text: verse
+  field_text:
+    plugin: concat
+    source: verse_long
+  type:
+    plugin: default_value
+    default_value: verse
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: entity:node
+migration_dependencies: {}

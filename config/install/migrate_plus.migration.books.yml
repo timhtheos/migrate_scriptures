@@ -29,9 +29,6 @@ source:
       type: string
 process:
   title: title
-  field_version:
-    plugin: default_value
-    default_value: 7
   field_name: name
   field_alias: alias
   type:
